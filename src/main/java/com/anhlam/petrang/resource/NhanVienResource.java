@@ -8,6 +8,7 @@ import com.anhlam.petrang.service.NhanVienService;
 import com.anhlam.petrang.service.SanPhamService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class NhanVienResource {
 
     @GetMapping("/san-pham-dto")
     public ResponseEntity<List<SanPham>> getListSanPhamDTO() {
+        RestTemplate restTemplate;
         List<SanPham> nv = sanPhamService.getListSanPhamDTO();
         return ResponseEntity.ok().body(nv);
     }
