@@ -8,6 +8,7 @@ import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
 import com.anhlam.petrang.service.SanPhamService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +39,8 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public List<SanPham> getListSanPhamDTO() {
-        return sanPhamRepoCustom.getProductbyDTO();
+        List<SanPham> lstSP = new ArrayList<>();
+        sanPhamRepoCustom.getProductbyDTO(lstSP::addAll, 3);
+        return lstSP;
     }
 }
