@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "nhanvien")
@@ -32,6 +33,18 @@ public class NhanVien {
 
     @Column(name = "tenphong")
     private String tenPhong;
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nhanvienid", referencedColumnName = "id")
+    private List<SanPham> sanPham;
+
+    public NhanVien() {
+    }
+
+    public NhanVien(Long id, List<SanPham> sanPham) {
+        this.id = id;
+        this.sanPham = sanPham;
+    }
 
     public Long getId() {
         return id;
@@ -87,5 +100,13 @@ public class NhanVien {
 
     public void setTenPhong(String tenPhong) {
         this.tenPhong = tenPhong;
+    }
+
+    public List<SanPham> getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(List<SanPham> sanPham) {
+        this.sanPham = sanPham;
     }
 }
