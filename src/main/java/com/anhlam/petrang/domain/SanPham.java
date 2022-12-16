@@ -51,6 +51,9 @@ public class SanPham implements Serializable {
     @Column(name = "hangsxid", updatable = false, insertable = false)
     private Long hangSXID;
 
+    @Column(name = "nhanvienid")
+    private Long nhanVienID;
+
     @Column(name = "tensp")
     private String tenSP;
 
@@ -69,9 +72,20 @@ public class SanPham implements Serializable {
     @Column(name = "mota")
     private String moTa;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "hangsxid", referencedColumnName = "id")
     private HangSX hangSX;
+
+    public SanPham() {
+
+    }
+
+    public SanPham(Long id, String tenSP, HangSX hangSX) {
+        this.id = id;
+        this.tenSP = tenSP;
+        this.hangSX = hangSX;
+    }
+
 
     public Long getId() {
         return id;
@@ -79,6 +93,14 @@ public class SanPham implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getNhanVienID() {
+        return nhanVienID;
+    }
+
+    public void setNhanVienID(Long nhanVienID) {
+        this.nhanVienID = nhanVienID;
     }
 
     public Long getHangSXID() {

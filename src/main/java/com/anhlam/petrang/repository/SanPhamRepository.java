@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
 
-    @Query(value = "select sp from SanPham sp")
+    @Query(value = "select new SanPham(sp.id, sp.tenSP, hsx) from SanPham sp join fetch HangSX hsx")
 //    @EntityGraph(attributePaths = "producthsx")
     List<SanPham> getSanPhamsByHangSXID(Long maHangSX);
 }
