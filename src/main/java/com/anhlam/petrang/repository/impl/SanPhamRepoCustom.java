@@ -16,7 +16,6 @@ import java.util.function.Consumer;
 public class SanPhamRepoCustom {
 
     @PersistenceContext()
-//    @Autowired()
     private EntityManager entityManager;
 
     @PersistenceContext()

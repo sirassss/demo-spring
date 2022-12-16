@@ -6,6 +6,7 @@ import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
 import com.anhlam.petrang.service.NhanVienService;
 //import com.google.gson.Gson;
 import com.anhlam.petrang.service.SanPhamService;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -20,11 +21,13 @@ public class NhanVienResource {
     private final NhanVienService nhanVienService;
     private final SanPhamService sanPhamService;
     private final SanPhamRepoCustom sanPhamRepoCustom;
+    private final RestTemplateBuilder restTemplateBuilder;
 
-    public NhanVienResource(NhanVienService nhanVienService, SanPhamService sanPhamService, SanPhamRepoCustom sanPhamRepoCustom) {
+    public NhanVienResource(NhanVienService nhanVienService, SanPhamService sanPhamService, SanPhamRepoCustom sanPhamRepoCustom, RestTemplateBuilder restTemplateBuilder) {
         this.nhanVienService = nhanVienService;
         this.sanPhamService = sanPhamService;
         this.sanPhamRepoCustom = sanPhamRepoCustom;
+        this.restTemplateBuilder = restTemplateBuilder;
     }
 
     @GetMapping("/nhan-vien")
@@ -53,7 +56,12 @@ public class NhanVienResource {
 
     @GetMapping("/san-pham-dto")
     public ResponseEntity<List<SanPham>> getListSanPhamDTO() {
-        RestTemplate restTemplate;
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        try {
+            restTemplate.getClass().getField("anhlam");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         List<SanPham> nv = sanPhamService.getListSanPhamDTO();
         return ResponseEntity.ok().body(nv);
     }
