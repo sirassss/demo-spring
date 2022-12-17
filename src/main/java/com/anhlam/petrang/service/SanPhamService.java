@@ -16,4 +16,5 @@ public interface SanPhamService {
 
     List<SanPham> getListSanPhamDTO();
 
+    List<SanPham> testNew(Long hsxID);
 }

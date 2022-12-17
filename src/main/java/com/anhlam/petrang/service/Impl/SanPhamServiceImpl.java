@@ -1,5 +1,6 @@
 package com.anhlam.petrang.service.Impl;
 
+import com.anhlam.petrang.Annotation.HandlingBusiness;
 import com.anhlam.petrang.domain.DTO.ProductDTO;
 import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.SanPham;
@@ -42,5 +43,11 @@ public class SanPhamServiceImpl implements SanPhamService {
         List<SanPham> lstSP = new ArrayList<>();
         sanPhamRepoCustom.getProductbyDTO(lstSP::addAll, 3);
         return lstSP;
+    }
+
+    @Override
+    @HandlingBusiness
+    public List<SanPham> testNew(Long hsxID) {
+        return sanPhamRepository.getSanPhamsByHangSXID(hsxID);
     }
 }

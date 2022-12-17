@@ -1,5 +1,6 @@
 package com.anhlam.petrang.resource;
 
+import com.anhlam.petrang.Annotation.HandlingBusiness;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.domain.SanPham;
 import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
@@ -11,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -43,8 +46,18 @@ public class NhanVienResource {
     }
 
     @GetMapping("/san-pham-by-mahsx/{mahsx}")
-    public ResponseEntity<List<SanPham>> getListSanPham(@PathVariable Long mahsx) {
-        List<SanPham> nv = sanPhamService.getListSanPhamByMaHangSx(mahsx);
+    public ResponseEntity<List<SanPham>> getListSanPham(@PathVariable Long mahsx) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+//        List<SanPham> nv = sanPhamService.getListSanPhamByMaHangSx(mahsx);
+        List<SanPham> nv = sanPhamService.testNew(mahsx);
+        Class<?> clazz = sanPhamService.getClass();
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(HandlingBusiness.class)) {
+                if (method.getReturnType().equals(List.class)) {
+
+                }
+            }
+        }
+
         return ResponseEntity.ok().body(nv);
     }
 

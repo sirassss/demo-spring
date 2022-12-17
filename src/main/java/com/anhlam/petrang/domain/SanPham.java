@@ -80,6 +80,11 @@ public class SanPham implements Serializable {
 
     }
 
+    public SanPham(Long id, String tenSP) {
+        this.id = id;
+        this.tenSP = tenSP;
+    }
+
     public SanPham(Long id, String tenSP, HangSX hangSX) {
         this.id = id;
         this.tenSP = tenSP;
