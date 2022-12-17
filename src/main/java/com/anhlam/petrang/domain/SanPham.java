@@ -40,6 +40,7 @@ import java.util.Set;
                 resultSetMapping = "productDTO"
         )
 )
+@NamedEntityGraph(name = "graph.SanPham.hangSx")
 @Table(name = "sanpham")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SanPham implements Serializable {

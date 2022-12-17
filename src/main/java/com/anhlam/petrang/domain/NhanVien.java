@@ -34,7 +34,7 @@ public class NhanVien {
     @Column(name = "tenphong")
     private String tenPhong;
 
-    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH }, fetch = FetchType.LAZY)
     @JoinColumn(name = "nhanvienid", referencedColumnName = "id")
     private List<SanPham> sanPham;
 
