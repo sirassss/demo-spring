@@ -13,6 +13,6 @@ public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
     @Query(value = "select nv.diaChi from NhanVien nv")
     List<NhanVien> getNhanVien();
 
-    @Query(value = "from NhanVien nv join fetch SanPham sp")
+    @Query(value = "from NhanVien nv join fetch nv.sanPham")
     List<NhanVien> getNhanVienWithSP();
 }
