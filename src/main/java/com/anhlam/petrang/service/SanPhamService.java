@@ -17,4 +17,8 @@ public interface SanPhamService {
     List<SanPham> getListSanPhamDTO();
 
     List<SanPham> testNew(Long hsxID);
+
+    List<SanPham> testGraph(String name);
+
+    List<HangSX> getAllHangSX();
 }

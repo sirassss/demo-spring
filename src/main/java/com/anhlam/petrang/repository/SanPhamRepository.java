@@ -1,6 +1,7 @@
 package com.anhlam.petrang.repository;
 
 import com.anhlam.petrang.domain.SanPham;
+import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
 //    @EntityGraph(attributePaths = "producthsx")
     List<SanPham> getSanPhamsByHangSXID(Long maHangSX);
 
-    @EntityGraph(value = "graph.SanPham.hangSx", type = EntityGraph.EntityGraphType.LOAD)
-//    @EntityGraph(attributePaths = "producthsx")
-    List<SanPham> getSanPhamByGraph(Long maHangSX);
+//    @EntityGraph(value = "SanPham.hangSX")
+    @Query("from SanPham")
+    List<SanPham> getAllForGraph(String name);
 }

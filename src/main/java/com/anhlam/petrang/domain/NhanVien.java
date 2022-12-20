@@ -5,12 +5,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "nhanvien")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class NhanVien {
+public class NhanVien implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,16 +35,10 @@ public class NhanVien {
     @Column(name = "tenphong")
     private String tenPhong;
 
-    @OneToMany(cascade = { CascadeType.MERGE, CascadeType.DETACH }, fetch = FetchType.LAZY)
-    @JoinColumn(name = "nhanvienid", referencedColumnName = "id")
-    private List<SanPham> sanPham;
+    @Column(name = "hangsxid")
+    private Long hangSXID;
 
     public NhanVien() {
-    }
-
-    public NhanVien(Long id, List<SanPham> sanPham) {
-        this.id = id;
-        this.sanPham = sanPham;
     }
 
     public Long getId() {
@@ -102,11 +97,11 @@ public class NhanVien {
         this.tenPhong = tenPhong;
     }
 
-    public List<SanPham> getSanPham() {
-        return sanPham;
+    public Long getHangSXID() {
+        return hangSXID;
     }
 
-    public void setSanPham(List<SanPham> sanPham) {
-        this.sanPham = sanPham;
+    public void setHangSXID(Long hangSXID) {
+        this.hangSXID = hangSXID;
     }
 }

@@ -1,17 +1,18 @@
 package com.anhlam.petrang.domain;
 
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "hangsx")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HangSX implements Serializable {
 
     @Id
@@ -29,6 +30,11 @@ public class HangSX implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    @OneToMany(cascade = { CascadeType.ALL }, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hangsxid", referencedColumnName = "id")
+    @Fetch(FetchMode.SUBSELECT)
+    private List<NhanVien> nhanVien = new ArrayList<>();
 
 
     public Long getId() {
@@ -69,5 +75,13 @@ public class HangSX implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<NhanVien> getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(List<NhanVien> nhanVien) {
+        this.nhanVien = nhanVien;
     }
 }

@@ -3,6 +3,8 @@ package com.anhlam.petrang.domain;
 import com.anhlam.petrang.domain.DTO.ProductDTO;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.web.bind.annotation.Mapping;
 
@@ -40,7 +42,7 @@ import java.util.Set;
                 resultSetMapping = "productDTO"
         )
 )
-@NamedEntityGraph(name = "graph.SanPham.hangSx", attributeNodes = @NamedAttributeNode("hangSX"))
+@NamedEntityGraph(name = "SanPham.hangSX", attributeNodes = {@NamedAttributeNode("tenSP"), @NamedAttributeNode("hangSX")})
 @Table(name = "sanpham")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SanPham implements Serializable {
@@ -51,9 +53,6 @@ public class SanPham implements Serializable {
 
     @Column(name = "hangsxid", updatable = false, insertable = false)
     private Long hangSXID;
-
-    @Column(name = "nhanvienid")
-    private Long nhanVienID;
 
     @Column(name = "tensp")
     private String tenSP;
@@ -73,7 +72,7 @@ public class SanPham implements Serializable {
     @Column(name = "mota")
     private String moTa;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = HangSX.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "hangsxid", referencedColumnName = "id")
     private HangSX hangSX;
 
@@ -99,14 +98,6 @@ public class SanPham implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getNhanVienID() {
-        return nhanVienID;
-    }
-
-    public void setNhanVienID(Long nhanVienID) {
-        this.nhanVienID = nhanVienID;
     }
 
     public Long getHangSXID() {
