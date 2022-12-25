@@ -16,7 +16,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
 //    @EntityGraph(attributePaths = "producthsx")
     List<SanPham> getSanPhamsByHangSXID(Long maHangSX);
 
-//    @EntityGraph(value = "SanPham.hangSX")
+    @EntityGraph(value = "SanPham.hangSX")
     @Query("from SanPham")
     List<SanPham> getAllForGraph(String name);
 }

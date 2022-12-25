@@ -62,7 +62,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     @Transactional
     public List<HangSX> getAllHangSX() {
-        List<HangSX> hasx = hangSXRepositoty.getAllCustom();
+        List<HangSX> hasx = new ArrayList<>(hangSXRepositoty.getAllCustom());
         return hasx;
     }
 }

@@ -1,14 +1,17 @@
 package com.anhlam.petrang.domain;
 
 import com.anhlam.petrang.domain.DTO.ProductDTO;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.web.bind.annotation.Mapping;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -42,7 +45,14 @@ import java.util.Set;
                 resultSetMapping = "productDTO"
         )
 )
-@NamedEntityGraph(name = "SanPham.hangSX", attributeNodes = {@NamedAttributeNode("tenSP"), @NamedAttributeNode("hangSX")})
+@NamedEntityGraph(name = "SanPham.hangSX",
+        attributeNodes = {
+                @NamedAttributeNode(value = "tenSP"),
+                @NamedAttributeNode(value = "hangSX", subgraph = "getHSX")
+        },
+        subgraphs = @NamedSubgraph(name = "getHSX", type = HangSX.class, attributeNodes = @NamedAttributeNode("tenHang")),
+        subclassSubgraphs = @NamedSubgraph(name = "getHSX", type = HangSX.class, attributeNodes = @NamedAttributeNode("tenHang"))
+)
 @Table(name = "sanpham")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SanPham implements Serializable {
@@ -72,8 +82,8 @@ public class SanPham implements Serializable {
     @Column(name = "mota")
     private String moTa;
 
-    @ManyToOne(targetEntity = HangSX.class, cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinColumn(name = "hangsxid", referencedColumnName = "id")
+    @ManyToOne(targetEntity = HangSX.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hangsxid")
     private HangSX hangSX;
 
     public SanPham() {

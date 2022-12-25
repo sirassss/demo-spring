@@ -67,6 +67,22 @@
 			<version>3.0.12</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate5</artifactId>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.zalando</groupId>-->
+<!--			<artifactId>problem-spring-web</artifactId>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.zalando</groupId>
+			<artifactId>problem-spring-web</artifactId>
+			<version>0.27.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
