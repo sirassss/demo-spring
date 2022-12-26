@@ -12,7 +12,7 @@ import java.util.Set;
 @Repository
 public interface HangSXRepositoty extends JpaRepository<HangSX, Long>  {
 
-//    @EntityGraph(attributePaths = "nhanVien")
-    @Query("select hsx from HangSX hsx join fetch hsx.nhanVien")
-    Set<HangSX> getAllCustom();
+    @EntityGraph(attributePaths = "nhanVien")
+    @Query("select hsx from HangSX hsx ")
+    List<HangSX> getAllCustom();
 }

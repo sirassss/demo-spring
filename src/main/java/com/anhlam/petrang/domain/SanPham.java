@@ -50,8 +50,7 @@ import java.util.Set;
                 @NamedAttributeNode(value = "tenSP"),
                 @NamedAttributeNode(value = "hangSX", subgraph = "getHSX")
         },
-        subgraphs = @NamedSubgraph(name = "getHSX", type = HangSX.class, attributeNodes = @NamedAttributeNode("tenHang")),
-        subclassSubgraphs = @NamedSubgraph(name = "getHSX", type = HangSX.class, attributeNodes = @NamedAttributeNode("tenHang"))
+        subgraphs = @NamedSubgraph(name = "getHSX", type = HangSX.class, attributeNodes = @NamedAttributeNode("tenHang"))
 )
 @Table(name = "sanpham")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
