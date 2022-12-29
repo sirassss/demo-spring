@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity()
 //@NamedEntityGraph(name = "getHSX", attributeNodes = { @NamedAttributeNode("nhanVien")})
 @Table(name = "hangsx")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -37,6 +37,13 @@ public class HangSX implements Serializable {
     @JoinColumn(name = "hangsxid", referencedColumnName = "id")
     @Fetch(FetchMode.SELECT)
     private List<NhanVien> nhanVien = new ArrayList<>();
+
+    public HangSX(){}
+
+    public HangSX(Long id, String tenHang) {
+        this.id = id;
+        this.tenHang = tenHang;
+    }
 
 
     public Long getId() {
