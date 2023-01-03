@@ -14,4 +14,8 @@ public class NhanVienDTO {
     private String soDT;
     private String email;
     private String tenPhong;
+
+    public void anhlam() {
+        getEmail();
+    }
 }
