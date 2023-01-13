@@ -46,10 +46,22 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.microsoft.sqlserver</groupId>-->
+<!--			<artifactId>sqljdbc41</artifactId>-->
+<!--			<version>4.1</version>-->
+<!--		</dependency>-->
+		<!-- Liquibase MS SQL Server extensions -->
+		<dependency>
+			<groupId>com.github.sabomichal</groupId>
+			<artifactId>liquibase-mssql</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc4</artifactId>
-			<version>4.0</version>
+			<artifactId>sqljdbc11</artifactId>
+			<version>11.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -70,6 +82,12 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>5.3.7</version>
 		</dependency>
 
 <!--		<dependency>-->
