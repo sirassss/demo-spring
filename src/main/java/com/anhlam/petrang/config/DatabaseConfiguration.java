@@ -8,4 +8,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories({ "com.anhlam.petrang.repository" })
 @EnableTransactionManagement
-public class DatabaseConfiguration {}
+public class DatabaseConfiguration {
+
+    //	@Bean
+//	public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
+//		return entityManagerFactory.createEntityManager();
+//	}
+}

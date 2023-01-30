@@ -1,4 +1,4 @@
-package com.anhlam.petrang.Annotation;
+package com.anhlam.petrang.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
