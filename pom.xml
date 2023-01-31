@@ -55,6 +55,13 @@
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
 		</dependency>
+
+		<!--thêm dependency này với dll_auth_9.4.0 là chạy được với quyền window-->
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>9.4.0.jre8</version>
+		</dependency>
 		<!-- Liquibase MS SQL Server extensions -->
 		<dependency>
 			<groupId>com.github.sabomichal</groupId>
