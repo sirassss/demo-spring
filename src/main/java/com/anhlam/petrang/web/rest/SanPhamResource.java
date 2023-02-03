@@ -1,4 +1,4 @@
-package com.anhlam.petrang.resource;
+package com.anhlam.petrang.web.rest;
 
 import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.SanPham;

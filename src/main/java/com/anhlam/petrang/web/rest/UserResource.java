@@ -1,4 +1,4 @@
-package com.anhlam.petrang.resource;
+package com.anhlam.petrang.web.rest;
 
 import com.anhlam.petrang.domain.User;
 import com.anhlam.petrang.security.UserDetailCustom;
