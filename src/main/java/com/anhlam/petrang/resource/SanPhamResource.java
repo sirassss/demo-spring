@@ -74,12 +74,7 @@ public class SanPhamResource {
 
     @GetMapping("/san-pham-dto")
     public ResponseEntity<List<SanPham>> getListSanPhamDTO() {
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        try {
-            restTemplate.getClass().getField("anhlam");
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+//        RestTemplate restTemplate = restTemplateBuilder.build();
         List<SanPham> nv = sanPhamService.getListSanPhamDTO();
         return ResponseEntity.ok().body(nv);
     }
