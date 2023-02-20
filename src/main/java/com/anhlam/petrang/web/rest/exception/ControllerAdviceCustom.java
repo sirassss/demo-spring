@@ -1,4 +1,4 @@
-package com.anhlam.petrang.resource.exception;
+package com.anhlam.petrang.web.rest.exception;
 
 
 import org.springframework.http.ResponseEntity;

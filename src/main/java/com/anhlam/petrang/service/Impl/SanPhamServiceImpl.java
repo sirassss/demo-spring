@@ -6,6 +6,7 @@ import com.anhlam.petrang.domain.SanPham;
 import com.anhlam.petrang.repository.HangSXRepositoty;
 import com.anhlam.petrang.repository.SanPhamRepository;
 import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
+import com.anhlam.petrang.security.SecurityUtils;
 import com.anhlam.petrang.service.SanPhamService;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,9 @@ public class SanPhamServiceImpl implements SanPhamService {
 
 
     @Override
+    @HandlingBusiness
     public List<SanPham> getListSanPham() {
+        SecurityUtils.getCurrentUserLogin().ifPresent(System.out::println);
         return sanPhamRepository.findAll();
     }
 
@@ -49,7 +52,6 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    @HandlingBusiness
     public List<SanPham> testNew(Long hsxID) {
         return sanPhamRepository.getSanPhamsByHangSXID(hsxID);
     }
