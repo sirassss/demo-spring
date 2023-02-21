@@ -28,8 +28,9 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public List<NhanVien> getNhanVien() {
-        List<NhanVien> nv = nhanVienRepoCustom.getNV();
-        return nhanVienRepository.getNhanVien();
+        nhanVienRepoCustom.getNhanVien2();
+        return nhanVienRepoCustom.getNhanVien();
+//        return nhanVienRepository.getNhanVien();
     }
 
     @Override

@@ -50,11 +50,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc4</artifactId>
-			<version>4.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.microsoft.sqlserver</groupId>-->
+<!--			<artifactId>sqljdbc4</artifactId>-->
+<!--			<version>4.0</version>-->
+<!--		</dependency>-->
 
 		<!--thêm dependency này với dll_auth_9.4.0 là chạy được với quyền window-->
 		<dependency>
