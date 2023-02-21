@@ -7,7 +7,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;database=QLBanHang;integratedSecurity=true
+    url: jdbc:sqlserver://localhost:1433;database=QLBanHang
     username: sa
     password: 123456
   liquibase:

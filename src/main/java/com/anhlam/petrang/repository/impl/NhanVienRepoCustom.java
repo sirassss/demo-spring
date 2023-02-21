@@ -29,7 +29,6 @@ public class NhanVienRepoCustom {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @PersistenceContext()
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
