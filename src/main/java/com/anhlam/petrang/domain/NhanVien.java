@@ -41,6 +41,17 @@ public class NhanVien implements Serializable {
     public NhanVien() {
     }
 
+    public NhanVien(Long id, String tenNV, Boolean gioiTinh, String diaChi, String soDT, String email, String tenPhong, Long hangSXID) {
+        this.id = id;
+        this.tenNV = tenNV;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.soDT = soDT;
+        this.email = email;
+        this.tenPhong = tenPhong;
+        this.hangSXID = hangSXID;
+    }
+
     public Long getId() {
         return id;
     }

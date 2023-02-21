@@ -4,7 +4,11 @@ import com.anhlam.petrang.domain.DTO.NhanVienDTO;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.domain.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityGraph;
@@ -20,6 +24,9 @@ import java.util.Map;
 public class NhanVienRepoCustom {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 //    @PersistenceContext()
     private EntityManager entityManager;
@@ -53,5 +60,12 @@ public class NhanVienRepoCustom {
     public void getNhanVien3() {
         TypedQuery<String> spt = entityManager.createQuery("select sp.tenSP from SanPham sp", String.class);
         List<String> a = spt.getResultList();
+    }
+
+    public List<NhanVien> getNV() {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValues(Map.of("id", 1));
+        List<NhanVienDTO> nv =  namedParameterJdbcTemplate.query("select * from NhanVien where ID <> :id", map, DataClassRowMapper.newInstance(NhanVienDTO.class));
+        return namedParameterJdbcTemplate.query("select * from NhanVien where ID <> :id", map, DataClassRowMapper.newInstance(NhanVien.class));
     }
 }

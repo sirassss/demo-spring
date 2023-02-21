@@ -6,6 +6,8 @@ import com.anhlam.petrang.repository.NhanVienRepository;
 import com.anhlam.petrang.repository.SanPhamRepository;
 import com.anhlam.petrang.repository.impl.NhanVienRepoCustom;
 import com.anhlam.petrang.service.NhanVienService;
+import org.springframework.jdbc.core.DataClassRowMapper;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public List<NhanVien> getNhanVien() {
-//        return nhanVienRepoCustom.getNhanVien();
+        List<NhanVien> nv = nhanVienRepoCustom.getNV();
         return nhanVienRepository.getNhanVien();
     }
 
