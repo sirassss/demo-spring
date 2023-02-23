@@ -72,6 +72,12 @@ public class SanPhamResource {
         return ResponseEntity.ok().body(hsx);
     }
 
+    @GetMapping("/hang-sx-by-name")
+    public ResponseEntity<List<HangSX>> getAllHangSXByName(@RequestParam String name) {
+        List<HangSX> hsx = sanPhamService.getHangSXByName(name);
+        return ResponseEntity.ok().body(hsx);
+    }
+
     @GetMapping("/san-pham-dto")
     public ResponseEntity<List<SanPham>> getListSanPhamDTO() {
 //        RestTemplate restTemplate = restTemplateBuilder.build();
