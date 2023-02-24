@@ -3,6 +3,8 @@ services:
   petrang-app:
     image: alsenpaiii/petrangapp:latest
     container_name: petrangcontainer
+    volumes:
+      - ~/log/:/tmp/
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - SPRING_DATASOURCE_URL=jdbc:sqlserver://10.11.0.2:1433;database=QLBanHang
