@@ -13,6 +13,12 @@ import java.util.List;
 
 @Entity()
 //@NamedEntityGraph(name = "getHSX", attributeNodes = { @NamedAttributeNode("nhanVien")})
+@NamedStoredProcedureQuery(name = "getProcHangSx",
+        procedureName = "Proc_HangSx", parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN, name = "name", type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "test", type = Integer.class)
+//        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "hangsxout", type = HangSX[].class)
+})
 @Table(name = "hangsx")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HangSX implements Serializable {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -65,6 +66,14 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Transactional
     public List<HangSX> getAllHangSX() {
         List<HangSX> hasx = new ArrayList<>(hangSXRepositoty.getCustomHangSx());
+        hangSXRepositoty.findAll((root, query, cb) -> root.get("a").in(""));
         return hasx;
+    }
+
+    @Override
+    @Transactional
+    public List<HangSX> getHangSXByName(String name) {
+        Integer test = hangSXRepositoty.getProcHangSX(name);
+        return Collections.emptyList();
     }
 }

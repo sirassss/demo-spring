@@ -21,4 +21,6 @@ public interface SanPhamService {
     List<SanPham> testGraph(String name);
 
     List<HangSX> getAllHangSX();
+
+    List<HangSX> getHangSXByName(String name);
 }

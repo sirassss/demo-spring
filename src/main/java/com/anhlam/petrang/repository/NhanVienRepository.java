@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface NhanVienRepository extends JpaRepository<NhanVien, Long> {
+public interface NhanVienRepository extends JpaRepository<NhanVien, Long>, NhanVienRepoCustom {
 
     @Query(value = "from NhanVien nv")
     List<NhanVien> getNhanVien();

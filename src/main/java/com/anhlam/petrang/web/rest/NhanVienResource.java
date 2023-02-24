@@ -43,9 +43,9 @@ public class NhanVienResource {
 
 
 
-//    @GetMapping("/test-jdbc")
-//    public ResponseEntity<List<SanPham>> testJDBCExecutor() {
-//        List<SanPham> nv = sanPhamRepoCustom.testJDBC();
-//        return ResponseEntity.ok().body(nv);
-//    }
+    @GetMapping("/get-proc-nhan-vien")
+    public ResponseEntity<List<NhanVien>> getProcNhanVien() {
+        List<NhanVien> nv = nhanVienService.getProcNhanVien();
+        return ResponseEntity.ok().body(nv);
+    }
 }

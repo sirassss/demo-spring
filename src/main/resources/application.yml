@@ -7,12 +7,13 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;database=QLBanHang;integratedSecurity=true
+    url: jdbc:sqlserver://localhost:1433;database=QLBanHang
     username: sa
     password: 123456
   liquibase:
     contexts: dev
   jpa:
+    open-in-view: false
     show-sql: true
     database: SQL_SERVER
     generate-ddl: false
@@ -36,16 +37,8 @@ spring:
       hibernate.query.in_clause_parameter_padding: true
 #      hibernate.format_sql: true
       dialect: org.hibernate.dialect.SQLServer2012Dialect
-    open-in-view: false
 ## ==============JPA / HIBERNATE=================
 
 
 # turn of auto initialize by lazy initialize
 #spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
-
-
-
-#logging.pattern.console=
-##================config web======================
-#management.endpoints.web.cors.allowed-origins=*
-#management.endpoints.web.cors.allowed-headers=GET,POST

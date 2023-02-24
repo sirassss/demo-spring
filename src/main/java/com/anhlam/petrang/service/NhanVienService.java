@@ -20,4 +20,6 @@ public interface NhanVienService {
     default <V, B> BiFunction<V, B, NhanVien> tesst(BiFunction<? super V,? super B, NhanVien> action) {
         return action::apply;
     }
+
+    List<NhanVien> getProcNhanVien();
 }
