@@ -5,14 +5,15 @@ services:
     container_name: petrangcontainer
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://172.19.0.2:1433;
-      - SPRING_LIQUIBASE_URL=jdbc:sqlserver://172.19.0.2:1433;
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://10.11.0.2:1433;database=QLBanHang
+      - SPRING_LIQUIBASE_URL=jdbc:sqlserver://10.11.0.2:1433;database=QLBanHang
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=r00t.R00T
     networks:
-      - petrang-network
+      petrang-network:
+        ipv4_address: 10.11.0.3
     ports:
-      - 8080:8082
+      - 127.0.0.1:8080:8082
   petrang-mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
@@ -26,12 +27,15 @@ services:
       - MSSQL_DATABASE=QLBanHang
       - MSSQL_SLEEP=60
     # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
+    # config ip
     networks:
-      - petrang-network
+      petrang-network:
+          ipv4_address: 10.11.0.2
     ports:
       - 8081:1433
     command: /bin/bash -c '/opt/mssql/bin/sqlservr & echo "wait $$MSSQL_SLEEP sec for DB to start "; sleep $$MSSQL_SLEEP; /opt/mssql-tools/bin/sqlcmd -U sa -P $$SA_PASSWORD -d tempdb -q "EXIT(CREATE DATABASE $$MSSQL_DATABASE)"; wait;'
 networks:
   petrang-network:
-    driver: bridge
+    name: petrang-networking
+  host-network:
+    name: host
