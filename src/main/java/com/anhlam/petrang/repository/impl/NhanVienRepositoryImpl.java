@@ -2,7 +2,7 @@ package com.anhlam.petrang.repository.impl;
 
 import com.anhlam.petrang.domain.DTO.NhanVienDTO;
 import com.anhlam.petrang.domain.NhanVien;
-import com.anhlam.petrang.repository.NhanVienRepoCustom;
+import com.anhlam.petrang.repository.NhanVienRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,11 +15,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.sql.Connection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
-public class NhanVienRepoImpl implements NhanVienRepoCustom {
+public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -30,23 +32,21 @@ public class NhanVienRepoImpl implements NhanVienRepoCustom {
     private EntityManager entityManager;
 
     @Override
-    public List<NhanVien> getNhanVien() {
-        return jdbcTemplate.query("select ID, TenNV from NhanVien", DataClassRowMapper.newInstance(NhanVien.class));
+    public void getNhanVienTest() {
+        jdbcTemplate.query("select ID, TenNV from NhanVien", DataClassRowMapper.newInstance(NhanVien.class));
     }
 
     @Override
-    public void getNhanVien2() {
+    public void getNhanVienTest2() {
         List<NhanVienDTO> mapnvs = jdbcTemplate.query("select * from NhanVien", DataClassRowMapper.newInstance(NhanVienDTO.class));
         if (!mapnvs.isEmpty()) {
             mapnvs.forEach(System.out::println);
         }
-        NhanVien map = jdbcTemplate.execute((Connection con) -> {
-            return new NhanVien();
-        });
+        NhanVien map = jdbcTemplate.execute((Connection con) -> new NhanVien());
     }
 
     @Override
-    public void getNhanVien3() {
+    public void getNhanVienTest3() {
         TypedQuery<String> spt = entityManager.createQuery("select sp.tenSP from SanPham sp", String.class);
         List<String> a = spt.getResultList();
     }
@@ -60,7 +60,7 @@ public class NhanVienRepoImpl implements NhanVienRepoCustom {
     }
 
     @Override
-    public List<NhanVien> getNVFromCritie() {
+    public List<NhanVien> getNVForCritie() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
 
@@ -71,8 +71,8 @@ public class NhanVienRepoImpl implements NhanVienRepoCustom {
     }
 
     @Override
-    public List<NhanVien> getProcNhanVien() {
-        StoredProcedureQuery builder = entityManager.createStoredProcedureQuery("Proc_getNhanVien", NhanVien.class);
-        return builder.getResultList();
+    public List<NhanVien> getProcForLstNhanVien() {
+//        StoredProcedureQuery builder = entityManager.createNamedStoredProcedureQuery("Proc_getNhanVien");
+        return Collections.emptyList();
     }
 }

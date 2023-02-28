@@ -29,6 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
+            String ip = request.getHeader("Origin");
+            System.out.println(ip);
             // Lấy jwt từ request
             String jwt = getJwtFromRequest(request);
 

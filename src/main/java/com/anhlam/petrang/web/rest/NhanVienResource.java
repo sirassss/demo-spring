@@ -7,6 +7,7 @@ import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
 import com.anhlam.petrang.service.NhanVienService;
 //import com.google.gson.Gson;
 import com.anhlam.petrang.service.SanPhamService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -28,7 +29,7 @@ public class NhanVienResource {
     private final SanPhamRepoCustom sanPhamRepoCustom;
     private final RestTemplateBuilder restTemplateBuilder;
 
-    public NhanVienResource(NhanVienService nhanVienService, SanPhamService sanPhamService, SanPhamRepoCustom sanPhamRepoCustom, RestTemplateBuilder restTemplateBuilder) {
+    public NhanVienResource(@Qualifier("nhanvien") NhanVienService nhanVienService, SanPhamService sanPhamService, SanPhamRepoCustom sanPhamRepoCustom, RestTemplateBuilder restTemplateBuilder) {
         this.nhanVienService = nhanVienService;
         this.sanPhamService = sanPhamService;
         this.sanPhamRepoCustom = sanPhamRepoCustom;
