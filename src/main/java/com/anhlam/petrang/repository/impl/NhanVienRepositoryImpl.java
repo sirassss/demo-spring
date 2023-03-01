@@ -1,8 +1,11 @@
 package com.anhlam.petrang.repository.impl;
 
 import com.anhlam.petrang.domain.DTO.NhanVienDTO;
+import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.repository.NhanVienRepositoryCustom;
+
+import org.hibernate.annotations.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +21,6 @@ import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
@@ -62,17 +64,18 @@ public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
     @Override
     public List<NhanVien> getNVForCritie() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-
-
         CriteriaQuery<NhanVien> query =  builder.createQuery(NhanVien.class);
         Root<NhanVien> root = query.from(NhanVien.class);
         query.select(root).where(builder.equal(root.get("ID"), "lam"));
-        return null;
+        return entityManager.createQuery(query).getResultList();
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<NhanVien> getProcForLstNhanVien() {
-//        StoredProcedureQuery builder = entityManager.createNamedStoredProcedureQuery("Proc_getNhanVien");
-        return Collections.emptyList();
+        StoredProcedureQuery builder = entityManager.createStoredProcedureQuery("Proc_getNhanVien", NhanVien.class);
+        builder.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        builder.setParameter(1, 2L);
+        return builder.getResultList();
     }
 }

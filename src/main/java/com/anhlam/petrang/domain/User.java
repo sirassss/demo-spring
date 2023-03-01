@@ -1,5 +1,6 @@
 package com.anhlam.petrang.domain;
 
+import com.anhlam.petrang.validate.ALamID;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -21,6 +22,10 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @ALamID /* check validate for ALamID */
+    @Column(name = "alamid")
+    private String ALamId;
 
     @JsonIgnore
     @ManyToMany
@@ -62,5 +67,13 @@ public class User {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getALamId() {
+        return ALamId;
+    }
+
+    public void setALamId(String ALamId) {
+        this.ALamId = ALamId;
     }
 }

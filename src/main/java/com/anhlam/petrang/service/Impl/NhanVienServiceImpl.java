@@ -39,7 +39,6 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public List<NhanVien> getProcNhanVien() {
-//        return nhanVienRepository.getProcForLstNhanVien();
-        return null;
+        return nhanVienRepository.getProcForLstNhanVien();
     }
 }
