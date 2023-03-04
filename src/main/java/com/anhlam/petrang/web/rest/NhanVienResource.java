@@ -42,7 +42,11 @@ public class NhanVienResource {
         return ResponseEntity.ok().body(nhanVienService.getNhanVien());
     }
 
-
+    @GetMapping("/nhan-vien-update")
+    @RolesAllowed("USER")
+    public ResponseEntity<List<NhanVien>> getNhanVien_2() {
+        return ResponseEntity.ok().body(nhanVienService.updateNhanVien(new NhanVien()));
+    }
 
     @GetMapping("/get-proc-nhan-vien")
     public ResponseEntity<List<NhanVien>> getProcNhanVien() {

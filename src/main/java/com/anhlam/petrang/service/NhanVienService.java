@@ -14,7 +14,7 @@ public interface NhanVienService {
 
     NhanVien createNhanVien(NhanVien nv);
 
-    NhanVien updateNhanVien(NhanVien nv);
+    List<NhanVien> updateNhanVien(NhanVien nv);
 
     default <V, B> BiFunction<V, B, NhanVien> tesst(BiFunction<? super V,? super B, NhanVien> action) {
         return action::apply;

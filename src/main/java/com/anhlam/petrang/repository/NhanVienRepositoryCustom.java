@@ -9,7 +9,7 @@ import java.util.List;
 public interface NhanVienRepositoryCustom {
     void getNhanVienTest();
 
-    void getNhanVienTest2();
+    List<NhanVien> getNhanVienTest2();
 
     void getNhanVienTest3();
 

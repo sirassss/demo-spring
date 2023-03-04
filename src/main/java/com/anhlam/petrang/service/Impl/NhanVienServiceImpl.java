@@ -33,8 +33,8 @@ public class NhanVienServiceImpl implements NhanVienService {
     }
 
     @Override
-    public NhanVien updateNhanVien(NhanVien nv) {
-        return null;
+    public List<NhanVien> updateNhanVien(NhanVien nv) {
+        return nhanVienRepository.getNhanVienTest2();
     }
 
     @Override

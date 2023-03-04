@@ -5,8 +5,11 @@ import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.repository.NhanVienRepositoryCustom;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.annotations.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,10 +20,10 @@ import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.sql.Connection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.*;
 
 
 public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
@@ -29,6 +32,10 @@ public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Autowired
+    @Qualifier("parseJson")
+    private ObjectMapper objectMapper;
 
     @PersistenceContext()
     private EntityManager entityManager;
@@ -39,12 +46,24 @@ public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
     }
 
     @Override
-    public void getNhanVienTest2() {
-        List<NhanVienDTO> mapnvs = jdbcTemplate.query("select * from NhanVien", DataClassRowMapper.newInstance(NhanVienDTO.class));
+    public List<NhanVien> getNhanVienTest2() {
+        List<NhanVienDTO> mapnvs = jdbcTemplate.query("exec Proc_getNhanVien 1", DataClassRowMapper.newInstance(NhanVienDTO.class));
         if (!mapnvs.isEmpty()) {
             mapnvs.forEach(System.out::println);
         }
-        NhanVien map = jdbcTemplate.execute((Connection con) -> new NhanVien());
+        List<NhanVien> map = jdbcTemplate.execute((Connection con) -> {
+            con.setAutoCommit(true);
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery(con.nativeSQL("select * from NhanVien"));
+            List<Map<String, Object>> nvs = new ArrayList<>();
+            while (resultSet.next()) {
+                nvs.add(getObjectFromResultSet(resultSet, NhanVien.class));
+            }
+            return Arrays.asList(objectMapper.convertValue(nvs, NhanVien[].class));
+        });
+
+        System.out.println("Done");
+        return map;
     }
 
     @Override
@@ -77,5 +96,26 @@ public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
         builder.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         builder.setParameter(1, 2L);
         return builder.getResultList();
+    }
+
+    private <T> Map<String, Object> getObjectFromResultSet(ResultSet resultSet, Class<T> tClass) throws SQLException {
+        ResultSetMetaData meta = resultSet.getMetaData();
+        int colcount = meta.getColumnCount();
+        Map<String, Object> res = new HashMap<>();
+        for (Field declaredField : tClass.getDeclaredFields()) {
+            for (int i = 1; i <= colcount; i++) {
+                String name = meta.getColumnLabel(i);
+                if (name.equalsIgnoreCase(declaredField.getName())) {
+                    if (declaredField.getType().equals(Boolean.class)) res.put(name, resultSet.getBoolean(i));
+                    if (declaredField.getType().equals(String.class)) res.put(name, resultSet.getString(i));
+                    if (declaredField.getType().equals(Integer.class)) res.put(name, resultSet.getInt(i));
+                    if (declaredField.getType().equals(Long.class)) res.put(name, resultSet.getLong(i));
+                    if (declaredField.getType().equals(Float.class)) res.put(name, resultSet.getFloat(i));
+                    if (declaredField.getType().equals(Double.class)) res.put(name, resultSet.getDouble(i));
+                    if (declaredField.getType().equals(LocalDate.class)) res.put(name, objectMapper.convertValue(resultSet.getObject(i), LocalDate.class));
+                }
+            }
+        }
+        return res;
     }
 }

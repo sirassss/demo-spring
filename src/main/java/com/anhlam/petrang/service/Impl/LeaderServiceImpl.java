@@ -20,7 +20,7 @@ public class LeaderServiceImpl implements NhanVienService {
     }
 
     @Override
-    public NhanVien updateNhanVien(NhanVien nv) {
+    public List<NhanVien> updateNhanVien(NhanVien nv) {
         return null;
     }
 
