@@ -1,20 +1,15 @@
 package com.anhlam.petrang.repository.impl;
 
 import com.anhlam.petrang.domain.DTO.NhanVienDTO;
-import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.repository.NhanVienRepositoryCustom;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.annotations.QueryHints;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -92,10 +87,12 @@ public class NhanVienRepositoryImpl implements NhanVienRepositoryCustom {
     @Override
     @SuppressWarnings("unchecked")
     public List<NhanVien> getProcForLstNhanVien() {
-        StoredProcedureQuery builder = entityManager.createStoredProcedureQuery("Proc_getNhanVien", NhanVien.class);
-        builder.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        StoredProcedureQuery builder = entityManager.createStoredProcedureQuery("Proc_getNhanVien");
+        builder
+                .registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
         builder.setParameter(1, 2L);
-        return builder.getResultList();
+        List<Object[]> objects = builder.getResultList();
+        return Collections.emptyList();
     }
 
     private <T> Map<String, Object> getObjectFromResultSet(ResultSet resultSet, Class<T> tClass) throws SQLException {
