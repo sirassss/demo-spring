@@ -8,9 +8,13 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -80,8 +84,24 @@ public class SanPhamResource {
 
     @GetMapping("/san-pham-dto")
     public ResponseEntity<List<SanPham>> getListSanPhamDTO() {
-//        RestTemplate restTemplate = restTemplateBuilder.build();
+        RestTemplate restTemplate = restTemplateBuilder.build();
         List<SanPham> nv = sanPhamService.getListSanPhamDTO();
         return ResponseEntity.ok().body(nv);
+    }
+
+    @GetMapping("/san-pham-web-mono/{id}")
+    private Mono<SanPham> getSPForMono(@PathVariable Long id) {
+        return Mono.just(Objects.requireNonNull(sanPhamService.getSpById(id).orElse(null)));
+    }
+
+    @GetMapping("/san-pham-web-flux")
+    private Flux<SanPham> getSPForFlux() {
+        List<SanPham> nv = sanPhamService.getListSanPhamDTO();
+        return Flux.just(new SanPham[0]);
+    }
+
+    @PostMapping("/san-pham-http-net")
+    private ResponseEntity<String> getSPHTTPNet() {
+        return ResponseEntity.ok("oki nhé");
     }
 }

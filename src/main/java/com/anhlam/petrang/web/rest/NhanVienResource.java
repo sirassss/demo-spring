@@ -14,9 +14,12 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import javax.annotation.security.RolesAllowed;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -53,4 +56,11 @@ public class NhanVienResource {
         List<NhanVien> nv = nhanVienService.getProcNhanVien();
         return ResponseEntity.ok().body(nv);
     }
+
+    @GetMapping("/nhan-vien-web-flux")
+    private Flux<NhanVien> getNVForFlux() {
+        List<NhanVien> nv = nhanVienService.getNhanVien();
+        return Flux.just(nv.toArray(new NhanVien[0]));
+    }
+
 }

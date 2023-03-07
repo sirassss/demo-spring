@@ -5,6 +5,7 @@ import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.SanPham;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SanPhamService {
 
@@ -23,4 +24,6 @@ public interface SanPhamService {
     List<HangSX> getAllHangSX();
 
     List<HangSX> getHangSXByName(String name);
+
+    Optional<SanPham> getSpById(Long id);
 }

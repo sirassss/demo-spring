@@ -39,7 +39,7 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.createUser(login, pass));
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<JWTToken> authenticateUser(@RequestParam String login, @RequestParam String pass) {
         // Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
