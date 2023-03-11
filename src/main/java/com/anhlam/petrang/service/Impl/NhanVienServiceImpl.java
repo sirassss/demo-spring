@@ -3,14 +3,13 @@ package com.anhlam.petrang.service.Impl;
 import com.anhlam.petrang.domain.NhanVien;
 import com.anhlam.petrang.repository.NhanVienRepository;
 import com.anhlam.petrang.repository.SanPhamRepository;
-import com.anhlam.petrang.repository.impl.NhanVienRepoImpl;
 import com.anhlam.petrang.service.NhanVienService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service("nhanvien")
 public class NhanVienServiceImpl implements NhanVienService {
 
     private final NhanVienRepository nhanVienRepository;
@@ -23,7 +22,6 @@ public class NhanVienServiceImpl implements NhanVienService {
 
     @Override
     public List<NhanVien> getNhanVien() {
-        nhanVienRepository.getNhanVien2();
         return nhanVienRepository.getNhanVien();
 //        return nhanVienRepository.getNhanVien();
     }
@@ -35,12 +33,12 @@ public class NhanVienServiceImpl implements NhanVienService {
     }
 
     @Override
-    public NhanVien updateNhanVien(NhanVien nv) {
-        return null;
+    public List<NhanVien> updateNhanVien(NhanVien nv) {
+        return nhanVienRepository.getNhanVienTest2();
     }
 
     @Override
     public List<NhanVien> getProcNhanVien() {
-        return nhanVienRepository.getProcNhanVien();
+        return nhanVienRepository.getProcForLstNhanVien();
     }
 }

@@ -20,8 +20,8 @@ public interface HangSXRepositoty extends JpaRepository<HangSX, Long>, JpaSpecif
     @Query("select hsx from HangSX hsx ")
     List<HangSX> getAllCustom();
 
-    @Query("select new HangSXDTO(hsx.id, hsx.tenHang, hsx.email) from HangSX hsx")
-    List<HangSXDTO> getCustomHangSx();
+//    @Query("select new HangSXDTO(hsx.id, hsx.tenHang, hsx.email) from HangSX hsx")
+//    List<HangSXDTO> getCustomHangSx();
 
     @Procedure(name = "getProcHangSx", outputParameterName = "test")
     Integer getProcHangSX(@Param("name") String name);

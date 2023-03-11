@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-@Entity
-public class HangSXDTO extends HangSX {
+//@Entity
+public class HangSXDTO  {
 
     @Transient
     @JsonSerialize
@@ -16,8 +16,6 @@ public class HangSXDTO extends HangSX {
     public HangSXDTO() {}
 
     public HangSXDTO(Long id, String tenHang, String giamDoc) {
-        super.setId(id);
-        super.setTenHang(tenHang);
         this.giamDoc = giamDoc;
     }
 

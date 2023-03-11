@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
@@ -65,9 +66,9 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     @Transactional
     public List<HangSX> getAllHangSX() {
-        List<HangSX> hasx = new ArrayList<>(hangSXRepositoty.getCustomHangSx());
+//        List<HangSX> hasx = new ArrayList<>(hangSXRepositoty.getCustomHangSx());
         hangSXRepositoty.findAll((root, query, cb) -> root.get("a").in(""));
-        return hasx;
+        return Collections.emptyList();
     }
 
     @Override
@@ -75,5 +76,10 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<HangSX> getHangSXByName(String name) {
         Integer test = hangSXRepositoty.getProcHangSX(name);
         return Collections.emptyList();
+    }
+
+    @Override
+    public Optional<SanPham> getSpById(Long id) {
+        return sanPhamRepository.findById(id);
     }
 }
