@@ -5,12 +5,13 @@ services:
     container_name: petrangcontainer
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://172.19.0.3:1433;
-      - SPRING_LIQUIBASE_URL=jdbc:sqlserver://172.19.0.3:1433;
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://192.168.1.64:1433;database=QLBanHang
+      - SPRING_LIQUIBASE_URL=jdbc:sqlserver://192.168.1.64:1433;database=QLBanHang
       - SPRING_DATASOURCE_USERNAME=sa
-      - SPRING_DATASOURCE_PASSWORD=r00t.R00T
-    networks:
-      - petrang-network
+      - SPRING_DATASOURCE_PASSWORD=123456
+#    networks:
+#      petrang-network:
+#        ipv4_address: 192.168.90.2
     ports:
       - 8084:8082
   petrang-mssql:
@@ -35,3 +36,7 @@ services:
 networks:
   petrang-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.100.1.1/16
+        - gateway: 10.100.1.1
