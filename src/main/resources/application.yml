@@ -2,14 +2,18 @@
 server:
   port: 8082
 
+management:
+  health:
+    elasticsearch:
+      enabled: false
 
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;database=QLBanHang;integratedSecurity=true
+    url: jdbc:sqlserver://localhost:1433;database=QLBanHang
     username: sa
-    password: 123456
+    password: 123456abc
   liquibase:
     contexts: dev
   data:
@@ -35,12 +39,24 @@ spring:
       hibernate.order_inserts: true
       hibernate.order_updates: true
       # modify fetch size as necessary
-#      hibernate.jdbc.fetch_size: 150
+      hibernate.jdbc.fetch_size: 150
       hibernate.criteria.literal_handling_mode: BIND
       hibernate.query.fail_on_pagination_over_collection_fetch: true
       hibernate.query.in_clause_parameter_padding: true
-#      hibernate.format_sql: true
+      hibernate.format_sql: true
       dialect: org.hibernate.dialect.SQLServer2012Dialect
+  main:
+    allow-bean-definition-overriding: true
+  elasticsearch:
+    uris:  https://my-deployment-6b82ea.es.asia-east1.gcp.elastic-cloud.com
+    username: elastic
+    password: ANe0hhyfMCUlgh7EOV90Su5T
+    socket-timeout: 10s
+
+
+
+
+
 ## ==============JPA / HIBERNATE=================
 
 

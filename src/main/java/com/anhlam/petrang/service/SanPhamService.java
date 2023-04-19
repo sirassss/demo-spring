@@ -26,4 +26,6 @@ public interface SanPhamService {
     List<HangSX> getHangSXByName(String name);
 
     Optional<SanPham> getSpById(Long id);
+
+    List<ProductDTO> getByName(String name);
 }

@@ -2,6 +2,7 @@ package com.anhlam.petrang.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "nhanvien")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document(indexName = "employee")
 public class NhanVien implements Serializable {
 
     @Id

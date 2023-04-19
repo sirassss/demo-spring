@@ -1,5 +1,6 @@
 package com.anhlam.petrang.web.rest;
 
+import com.anhlam.petrang.domain.DTO.ProductDTO;
 import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.SanPham;
 import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
@@ -8,13 +9,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api")
@@ -45,16 +42,6 @@ public class SanPhamResource {
     @GetMapping("/san-pham-by-mahsx/{mahsx}")
     public ResponseEntity<List<SanPham>> getListSanPham(@PathVariable Long mahsx) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         List<SanPham> nv = sanPhamService.getListSanPhamByMaHangSx(mahsx);
-//        List<SanPham> nv = sanPhamService.testGraph(mahsx);
-//        Class<?> clazz = sanPhamService.getClass();
-//        for (Method method : clazz.getDeclaredMethods()) {
-//            if (method.isAnnotationPresent(HandlingBusiness.class)) {
-//                if (method.getReturnType().equals(List.class)) {
-//
-//                }
-//            }
-//        }
-
         return ResponseEntity.ok().body(nv);
     }
 
@@ -89,15 +76,10 @@ public class SanPhamResource {
         return ResponseEntity.ok().body(nv);
     }
 
-    @GetMapping("/san-pham-web-mono/{id}")
-    private Mono<SanPham> getSPForMono(@PathVariable Long id) {
-        return Mono.just(Objects.requireNonNull(sanPhamService.getSpById(id).orElse(null)));
-    }
-
-    @GetMapping("/san-pham-web-flux")
-    private Flux<SanPham> getSPForFlux() {
-        List<SanPham> nv = sanPhamService.getListSanPhamDTO();
-        return Flux.just(new SanPham[0]);
+    @GetMapping("/elastic-search-product-by-name")
+    private ResponseEntity<List<ProductDTO>> getSPByName(@RequestParam String name) {
+        List<ProductDTO> sps = sanPhamService.getByName(name);
+        return ResponseEntity.ok().body(sps);
     }
 
     @PostMapping("/san-pham-http-net")

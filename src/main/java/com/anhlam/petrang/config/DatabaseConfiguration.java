@@ -1,17 +1,13 @@
 package com.anhlam.petrang.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableJpaRepositories({ "com.anhlam.petrang.repository" })
+@EnableElasticsearchRepositories("com.anhlam.petrang.repository.search")
 @EnableTransactionManagement
-public class DatabaseConfiguration {
-
-    //	@Bean
-//	public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-//		return entityManagerFactory.createEntityManager();
-//	}
-}
+public class DatabaseConfiguration { }

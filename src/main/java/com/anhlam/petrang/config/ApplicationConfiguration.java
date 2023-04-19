@@ -4,10 +4,13 @@ import com.anhlam.petrang.security.jwt.JwtAuthenticationFilter;
 import com.anhlam.petrang.service.Impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ApplicationConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userService;
@@ -50,13 +53,27 @@ public class ApplicationConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) {
+        web
+                .ignoring()
+                .antMatchers(HttpMethod.OPTIONS, "/**")
+                .antMatchers("/app/**/*.{js,html}")
+                .antMatchers("/i18n/**")
+                .antMatchers("/content/**")
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/test/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors().disable()
                 .authorizeRequests()
                 .antMatchers("/api/create-user").permitAll()
                 .antMatchers("/api/login").permitAll()
-//                .antMatchers("/api/nhan-vien").hasRole("USER")
-                .anyRequest().authenticated()
+                .antMatchers("/api/**").authenticated()
+                .and()
+                .httpBasic()
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

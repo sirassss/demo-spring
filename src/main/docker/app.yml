@@ -11,3 +11,23 @@ services:
       - SPRING_DATASOURCE_PASSWORD=123456
     ports:
       - 8084:8082
+    networks:
+      my_network:
+        - ipv4_address: 10.30.5.2
+  nginx-app:
+    image: alsenpaiii/nginx:latest
+    container_name: nginx_container
+    ports:
+      - 80:80
+    networks:
+      my_network:
+        - ipv4_address: 10.30.5.3
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.30.0.0/16"
+          ip_range: "10.30.5.0/24"
+          gateway: "10.30.5.254"

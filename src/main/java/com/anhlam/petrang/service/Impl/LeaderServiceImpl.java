@@ -28,4 +28,9 @@ public class LeaderServiceImpl implements NhanVienService {
     public List<NhanVien> getProcNhanVien() {
         return null;
     }
+
+    @Override
+    public List<NhanVien> searchEmployeeByName(String name) {
+        return null;
+    }
 }

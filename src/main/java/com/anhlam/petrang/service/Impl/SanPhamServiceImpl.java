@@ -1,13 +1,16 @@
 package com.anhlam.petrang.service.Impl;
 
 import com.anhlam.petrang.annotation.HandlingBusiness;
+import com.anhlam.petrang.domain.DTO.ProductDTO;
 import com.anhlam.petrang.domain.HangSX;
 import com.anhlam.petrang.domain.SanPham;
 import com.anhlam.petrang.repository.HangSXRepositoty;
 import com.anhlam.petrang.repository.SanPhamRepository;
 import com.anhlam.petrang.repository.impl.SanPhamRepoCustom;
+import com.anhlam.petrang.repository.search.ProductRepositorySearch;
 import com.anhlam.petrang.security.SecurityUtils;
 import com.anhlam.petrang.service.SanPhamService;
+import com.anhlam.petrang.service.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,17 +18,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SanPhamServiceImpl implements SanPhamService {
     private final SanPhamRepository sanPhamRepository;
     private final SanPhamRepoCustom sanPhamRepoCustom;
     private final HangSXRepositoty hangSXRepositoty;
+    private final ProductRepositorySearch productRepositorySearch;
+    private final ProductMapper productMapper;
 
-    public SanPhamServiceImpl(SanPhamRepository sanPhamRepository, SanPhamRepoCustom sanPhamRepoCustom, HangSXRepositoty hangSXRepositoty) {
+    public SanPhamServiceImpl(SanPhamRepository sanPhamRepository, SanPhamRepoCustom sanPhamRepoCustom, HangSXRepositoty hangSXRepositoty, ProductRepositorySearch productRepositorySearch, ProductMapper productMapper) {
         this.sanPhamRepository = sanPhamRepository;
         this.sanPhamRepoCustom = sanPhamRepoCustom;
         this.hangSXRepositoty = hangSXRepositoty;
+        this.productRepositorySearch = productRepositorySearch;
+        this.productMapper = productMapper;
     }
 
 
@@ -42,8 +50,11 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
+    @Transactional
     public SanPham createProduct(SanPham sanPham) {
-        return sanPhamRepository.save(sanPham);
+        SanPham sp = sanPhamRepository.save(sanPham);
+        productRepositorySearch.save(sp);
+        return sp;
     }
 
     @Override
@@ -81,5 +92,13 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public Optional<SanPham> getSpById(Long id) {
         return sanPhamRepository.findById(id);
+    }
+
+    @Override
+    public List<ProductDTO> getByName(String name) {
+        return productRepositorySearch
+                .search(name)
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

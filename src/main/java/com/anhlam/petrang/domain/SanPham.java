@@ -1,8 +1,11 @@
 package com.anhlam.petrang.domain;
 
 import com.anhlam.petrang.domain.DTO.ProductDTO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.web.bind.annotation.Mapping;
 
@@ -54,6 +57,8 @@ import java.util.Set;
 )
 @Table(name = "sanpham")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Document(indexName = "sanpham")
+@JsonIgnoreProperties({ "id", "hangSXID", "hangSX"})
 public class SanPham implements Serializable {
 
     @Id

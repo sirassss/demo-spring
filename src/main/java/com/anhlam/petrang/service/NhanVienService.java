@@ -21,4 +21,6 @@ public interface NhanVienService {
     }
 
     List<NhanVien> getProcNhanVien();
+
+    List<NhanVien> searchEmployeeByName(String name);
 }
