@@ -8,64 +8,31 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.anhlam</groupId>
-	<artifactId>petrang</artifactId>
+	<groupId>com.alam</groupId>
+	<artifactId>demo-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>petrang</name>
+	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-boot.version>2.7.3</spring-boot.version>
-		<mapstruct.version>1.5.2.Final</mapstruct.version>
-		<start-class>com.anhlam.petrang.PetrangApplication</start-class>
+		<model-mapper.version>3.0.0</model-mapper.version>
+		<start-class>com.alam.demo.DemoApplication</start-class>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!--thêm dependency này với dll_auth_9.4.0 là chạy được với quyền window-->
-		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
-			<version>9.4.0.jre8</version>
-		</dependency>
-		<!-- Liquibase MS SQL Server extensions -->
-		<dependency>
-			<groupId>com.github.sabomichal</groupId>
-			<artifactId>liquibase-mssql</artifactId>
-			<version>1.4</version>
-		</dependency>
-
 <!---->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,10 +45,6 @@
 			<version>3.0.12</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-hibernate5</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>tech.jhipster</groupId>
@@ -102,15 +65,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${mapstruct.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<version>${mapstruct.version}</version>
-			<scope>provided</scope>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${model-mapper.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -142,17 +99,7 @@
 								<artifactId>spring-boot-configuration-processor</artifactId>
 								<version>${spring-boot.version}</version>
 							</path>
-							<path>
-								<groupId>org.mapstruct</groupId>
-								<artifactId>mapstruct-processor</artifactId>
-								<version>${mapstruct.version}</version>
-							</path>
-							<!-- For JPA static metamodel generation -->
-							<path>
-								<groupId>org.hibernate</groupId>
-								<artifactId>hibernate-jpamodelgen</artifactId>
-								<version>${hibernate.version}</version>
-							</path>
+
 							<path>
 								<groupId>org.projectlombok</groupId>
 								<artifactId>lombok</artifactId>
@@ -165,14 +112,6 @@
 				<plugin>
 					<artifactId>maven-clean-plugin</artifactId>
 					<version>${maven-clean-plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-idea-plugin</artifactId>
-					<version>${maven-idea-plugin.version}</version>
-					<configuration>
-						<exclude>node_modules</exclude>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
