@@ -1,0 +1,1 @@
+docker build -t alsenpaiii/demo-spring-layer:1.0 --no-cache -f demo.app_layer.Dockerfile .

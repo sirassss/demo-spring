@@ -8,11 +8,14 @@ management:
       enabled: false
 
 spring:
-#  elasticsearch:
-#    uris:  https://my-deployment-6b82ea.es.asia-east1.gcp.elastic-cloud.com
-#    username: elastic
-#    password: ANe0hhyfMCUlgh7EOV90Su5T
-#    socket-timeout: 10s
+  application:
+    name: DemoSpring
+  elasticsearch:
+    uris:  http://localhost:9200
+    socket-timeout: 10s
+  data:
+    redis:
+      host: redis-app
 
 jhipster:
   cors:

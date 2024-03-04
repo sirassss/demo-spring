@@ -1,24 +1,28 @@
 package com.alam.demo.web.rest;
 
 import com.alam.demo.domain.dto.NhanVienDTO;
+import com.alam.demo.repository.search.UserSearchRepository;
 import com.alam.demo.service.NhanVienService;
-import com.alam.demo.service.SanPhamService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class NhanVienResource {
 
+    @Autowired
+    private RedisTemplate template;
     private final NhanVienService nhanVienService;
-    private final SanPhamService sanPhamService;
+//    private final UserSearchRepository userSearchRepository;
 
-    public NhanVienResource( NhanVienService nhanVienService, SanPhamService sanPhamService) {
+    public NhanVienResource(NhanVienService nhanVienService/*, UserSearchRepository userSearchRepository*/) {
         this.nhanVienService = nhanVienService;
-        this.sanPhamService = sanPhamService;
+//        this.userSearchRepository = userSearchRepository;
     }
 
     @PostMapping("/nhan-vien")
@@ -36,5 +40,19 @@ public class NhanVienResource {
         return ResponseEntity.ok().body(nhanVienService.updateNhanVien(new NhanVienDTO()));
     }
 
+//    @GetMapping("/users/_search/{query}")
+//    public List<NhanVienDTO> search(@PathVariable String query) {
+//        return StreamSupport.stream(userSearchRepository.search(query).spliterator(), false).map(NhanVienDTO::new).toList();
+//    }
 
+    @GetMapping("/redis/check")
+    public ResponseEntity<String> redisCheck() {
+        template.getClientList();
+        return ResponseEntity.ok("");
+    }
+
+}
+
+abstract class Prt {
+    private String a;
 }

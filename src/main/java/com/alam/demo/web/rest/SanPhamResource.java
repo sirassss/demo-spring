@@ -13,11 +13,9 @@ import java.util.List;
 public class SanPhamResource {
 
     private final SanPhamService sanPhamService;
-    private final RestTemplateBuilder restTemplateBuilder;
 
-    public SanPhamResource(SanPhamService sanPhamService, RestTemplateBuilder restTemplateBuilder) {
+    public SanPhamResource(SanPhamService sanPhamService) {
         this.sanPhamService = sanPhamService;
-        this.restTemplateBuilder = restTemplateBuilder;
     }
 
     @GetMapping("/get-product-by-name")
