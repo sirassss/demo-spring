@@ -2,7 +2,9 @@
 version: '3.8'
 services:
   demo-app:
-    image: alsenpaiii/demo-spring-layer:1.0
+#    image: alsenpaiii/demo-spring-layer:2.0
+    build:
+      dockerfile: demo.app_layer.Dockerfile
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
     ports:
@@ -16,9 +18,9 @@ services:
     networks:
       my_network:
         ipv4_address: 10.30.5.2
-    depends_on:
-      - nginx-app
-      - redis-app
+#    depends_on:
+#      - nginx-app
+#      - redis-app
   nginx-app:
     image: alsenpaiii/nginx:1.0
     container_name: nginx_container

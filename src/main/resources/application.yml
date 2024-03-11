@@ -6,6 +6,16 @@ management:
   health:
     elasticsearch:
       enabled: false
+#  endpoints:
+#    web:
+#      base-path: /management
+#      exposure:
+#        include: prometheus
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+#        step: 60
 
 spring:
   application:
